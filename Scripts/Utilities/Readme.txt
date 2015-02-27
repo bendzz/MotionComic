@@ -1,0 +1,1 @@
+Check the "Renders\Output\Videos_to_Convert\" folder to see these scripts with the proper setup; You need Handbrake and ffmpeg copies for them to work.

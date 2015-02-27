@@ -1,0 +1,5 @@
+Firefox = Yes
+Chrome = Yes
+Safari = Yes but videos look slightly greyish (stupid MP4s...)
+Opera = Yes online, offline only keyboard controls work
+Internet Explorer = Haha no. Doesn't play nice with multiple videos.

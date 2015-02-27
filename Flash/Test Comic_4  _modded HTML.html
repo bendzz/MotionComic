@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Comic_4</title>
+
+<script src="https://code.createjs.com/easeljs-0.7.1.min.js"></script>
+<script src="https://code.createjs.com/tweenjs-0.5.1.min.js"></script>
+<script src="https://code.createjs.com/movieclip-0.7.1.min.js"></script>
+<script src="https://code.createjs.com/preloadjs-0.4.1.min.js"></script>
+<script src="https://code.createjs.com/soundjs-0.5.2.min.js"></script>
+<script src="Test Comic_4.js"></script>
+
+<script>
+var canvas, stage, exportRoot;
+
+function init() {
+	canvas = document.getElementById("canvas");
+	images = images||{};
+
+	var loader = new createjs.LoadQueue(false);
+	loader.installPlugin(createjs.Sound);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+	
+	/*new load bar*/
+	console.log("started loading");
+	loader.on("progress", loadBar, this);
+}
+
+function loadBar(event){
+	/*new load bar*/
+
+	document.getElementById("loadText").innerHTML = "Heh, sorry it's so big  =T   The images on the first page are like 15mb. " +(event.loaded*100) + "% loaded.";
+}
+
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+}
+
+function handleComplete() {
+	exportRoot = new lib.TestComic_4();
+
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.update();
+	stage.enableMouseOver();
+
+	createjs.Ticker.setFPS(lib.properties.fps);
+	createjs.Ticker.addEventListener("tick", stage);
+	
+	//document.getElementById("loadText").innerHTML = "";
+	var loadTextElement = document.getElementById("loadText");
+	loadTextElement.parentNode.removeChild(loadTextElement);
+}
+
+function playSound(id, loop) {
+	createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
+}
+</script>
+</head>
+
+<body onload="init();" style="background-color:#D4D4D4; margin:0px">
+	<p id="loadText"></p>
+	<canvas id="canvas" width="1920" height="1080" style="background-color:#FFFFFF"></canvas>
+</body>
+</html>
